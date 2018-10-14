@@ -60,7 +60,12 @@ public class MeiroFragment extends Fragment {
         return view;
     }
 
+    public boolean isEndMove(POSITION position) {
+        return mAdapter.getBlocksMove().isEndMove(mPosition, position);
+    }
+
     public void moveUp() {
+
         if(mAdapter.getBlocksMove().isMoveUp(mPosition)) {
             mPosition = MeiroUtil.getNextKey(mPosition, POSITION.POSITION_UP);
             mAdapter.getBlocksMove().addSearch(mPosition);
@@ -93,6 +98,6 @@ public class MeiroFragment extends Fragment {
     }
 
     public void endMeiro() {
-
+        mAdapter.showAll();
     }
 }
