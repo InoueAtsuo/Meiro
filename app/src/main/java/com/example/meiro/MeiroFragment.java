@@ -91,4 +91,8 @@ public class MeiroFragment extends Fragment {
             mAdapter.viewMeiro(mPosition);
         }
     }
+
+    public void endMeiro() {
+
+    }
 }

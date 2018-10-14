@@ -13,6 +13,7 @@ public class MeiroMapActivity extends AppCompatActivity {
 
     private MeiroFragment mFragment;
 
+    private Button mGiveUp;
     private Button mReturn;
 
     private Button mMoveUp;
@@ -29,7 +30,8 @@ public class MeiroMapActivity extends AppCompatActivity {
         int y = intent.getIntExtra(Constant.INTENT_KEY_Y, 0);
 
         setContentView(R.layout.activity_meiro_map);
-        mReturn = (Button) findViewById(R.id.return_button);
+        mGiveUp = (Button) findViewById(R.id.give_up_button);
+        mReturn = (Button) findViewById(R.id.return_home_button);
 
         mMoveUp    = (Button) findViewById(R.id.move_up);
         mMoveDown  = (Button) findViewById(R.id.move_down);
@@ -45,6 +47,15 @@ public class MeiroMapActivity extends AppCompatActivity {
     }
 
     private void setUp(){
+
+        mGiveUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mFragment.endMeiro();
+                showButton(false);
+            }
+        });
+        showButton(true);
 
         mReturn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,4 +92,15 @@ public class MeiroMapActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void showButton(boolean giveUpFLg) {
+        if (giveUpFLg) {
+            mGiveUp.setVisibility(View.VISIBLE);
+            mReturn.setVisibility(View.GONE);
+        } else {
+            mGiveUp.setVisibility(View.GONE);
+            mReturn.setVisibility(View.VISIBLE);
+        }
+    }
+
 }
