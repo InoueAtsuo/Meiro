@@ -4,7 +4,9 @@
     <string name="level_2">中級</string>
     <string name="level_3">上級</string>
 
-    <string name="giveup">戻る</string>
+    <string name="give_up">ギブアップ</string>
+    <string name="return_home">戻る</string>
+
     <string name="move_up">上</string>
     <string name="move_down">下</string>
     <string name="move_right">右</string>

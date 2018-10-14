@@ -71,6 +71,17 @@ public class BlocksMove extends Blocks {
         }
     }
 
+    public boolean isEndMove(String key, POSITION position) {
+        int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
+        int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
+
+        if (x == mMaxX - 2 && y == mMaxY - 2 && position == POSITION.POSITION_UP) {
+            return true;
+        }
+
+        return false;
+    }
+
     public boolean isMoveUp(String key) {
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
         if (mMaxY - 2 <= y) {
@@ -151,6 +162,14 @@ public class BlocksMove extends Blocks {
 
     public void addSearch(String key) {
         if (!isSearch(key)) {
+            mSearchKeys.add(key);
+        }
+    }
+
+    public void showAll() {
+        mSearchKeys.clear();
+        List<String> keys = getKeys();
+        for (String key : keys) {
             mSearchKeys.add(key);
         }
     }

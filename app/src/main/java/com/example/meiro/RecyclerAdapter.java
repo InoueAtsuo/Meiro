@@ -66,6 +66,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         return mBlocksMove;
     }
 
+    public void showAll() {
+        mBlocksMove.showAll();
+        notifyDataSetChanged();
+    }
 
     private void setImage(ViewHolder viewHolder, String key) {
 
