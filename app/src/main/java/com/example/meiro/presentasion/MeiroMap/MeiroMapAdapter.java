@@ -1,4 +1,4 @@
-package com.example.meiro;
+package com.example.meiro.presentasion.MeiroMap;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -12,15 +12,16 @@ import com.example.meiro.Constant.Constant;
 import com.example.meiro.Constant.Constant.WALL;
 import com.example.meiro.Data.BlocksCreate;
 import com.example.meiro.Data.BlocksMove;
+import com.example.meiro.R;
 import com.example.meiro.Util.MeiroUtil;
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
+public class MeiroMapAdapter extends RecyclerView.Adapter<MeiroMapAdapter.ViewHolder> {
 
     private BlocksMove mBlocksMove;
     private Context mContext;
     private String mPosition;
 
-    private RecyclerAdapter (Context context, BlocksCreate blocksCreate, String position) {
+    private MeiroMapAdapter(Context context, BlocksCreate blocksCreate, String position) {
         mContext = context;
         mBlocksMove = BlocksMove.of(blocksCreate.getMaxX() + 2, blocksCreate.getMaxY() + 2);
         mBlocksMove.setWallData(blocksCreate.getDatas());
@@ -28,8 +29,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         mBlocksMove.addSearch(mPosition);
     }
 
-    public static RecyclerAdapter of(Context context, BlocksCreate blocksCreate, String position) {
-        RecyclerAdapter adapter = new RecyclerAdapter(context, blocksCreate, position);
+    public static MeiroMapAdapter of(Context context, BlocksCreate blocksCreate, String position) {
+        MeiroMapAdapter adapter = new MeiroMapAdapter(context, blocksCreate, position);
         return adapter;
     }
 

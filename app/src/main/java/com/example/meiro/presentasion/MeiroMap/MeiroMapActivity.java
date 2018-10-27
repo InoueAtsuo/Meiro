@@ -1,4 +1,4 @@
-package com.example.meiro;
+package com.example.meiro.presentasion.MeiroMap;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
@@ -10,10 +10,11 @@ import android.widget.RelativeLayout;
 
 import com.example.meiro.Constant.Constant;
 import com.example.meiro.Constant.Constant.POSITION;
+import com.example.meiro.R;
 
 public class MeiroMapActivity extends AppCompatActivity {
 
-    private MeiroFragment mFragment;
+    private MeiroMapFragment mFragment;
 
     private Button mGiveUp;
     private Button mReturn;
@@ -42,7 +43,7 @@ public class MeiroMapActivity extends AppCompatActivity {
         mMoveRight = (Button) findViewById(R.id.move_right);
         mMoveLeft  = (Button) findViewById(R.id.move_left);
 
-        mFragment = MeiroFragment.of(x, y);
+        mFragment = MeiroMapFragment.of(x, y);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.meiro_fragment, mFragment);
         transaction.commit();
