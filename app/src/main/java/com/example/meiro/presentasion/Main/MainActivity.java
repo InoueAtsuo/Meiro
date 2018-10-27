@@ -1,16 +1,14 @@
-package com.example.meiro;
+package com.example.meiro.presentasion.Main;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.example.meiro.Constant.Constant;
-import com.example.meiro.Util.MeiroUtil;
-
-import java.util.List;
+import com.example.meiro.R;
+import com.example.meiro.presentasion.MeiroMap.MeiroMapActivity;
 
 public class MainActivity extends AppCompatActivity {
 

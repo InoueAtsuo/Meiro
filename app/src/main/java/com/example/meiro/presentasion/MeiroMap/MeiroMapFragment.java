@@ -1,4 +1,4 @@
-package com.example.meiro;
+package com.example.meiro.presentasion.MeiroMap;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,20 +12,21 @@ import android.view.ViewGroup;
 import com.example.meiro.Constant.Constant;
 import com.example.meiro.Constant.Constant.POSITION;
 import com.example.meiro.Data.BlocksCreate;
+import com.example.meiro.R;
 import com.example.meiro.Util.MeiroUtil;
 
-public class MeiroFragment extends Fragment {
+public class MeiroMapFragment extends Fragment {
 
     private String mPosition;
     private BlocksCreate mBlocksCreate;
-    private RecyclerAdapter mAdapter;
+    private MeiroMapAdapter mAdapter;
 
-    public static MeiroFragment of(int x, int y) {
+    public static MeiroMapFragment of(int x, int y) {
         Bundle args = new Bundle();
         args.putInt(Constant.INTENT_KEY_X, x);
         args.putInt(Constant.INTENT_KEY_Y, y);
 
-        MeiroFragment fragment = new MeiroFragment();
+        MeiroMapFragment fragment = new MeiroMapFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,7 +51,7 @@ public class MeiroFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.meiro_map, container, false);
 
-        mAdapter = RecyclerAdapter.of(getActivity(), mBlocksCreate, mPosition);
+        mAdapter = MeiroMapAdapter.of(getActivity(), mBlocksCreate, mPosition);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(llm);
