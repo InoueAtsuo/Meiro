@@ -1,4 +1,4 @@
-package com.example.meiro.presentasion.MeiroMap;
+package com.example.meiro.presentasion.view.MeiroMap;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

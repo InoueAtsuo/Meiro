@@ -1,4 +1,4 @@
-package com.example.meiro.presentasion.MeiroMap;
+package com.example.meiro.presentasion.view.MeiroMap;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -53,7 +53,7 @@ public class MeiroMapFragment extends Fragment {
 
         mAdapter = MeiroMapAdapter.of(getActivity(), mBlocksCreate, mPosition);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(llm);
         recyclerView.setLayoutManager(new GridLayoutManager(getContext(), mBlocksCreate.getMaxX() + 2));
         recyclerView.setAdapter(mAdapter);
