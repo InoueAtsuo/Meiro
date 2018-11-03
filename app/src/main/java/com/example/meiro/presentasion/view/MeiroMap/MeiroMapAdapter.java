@@ -79,17 +79,17 @@ public class MeiroMapAdapter extends RecyclerView.Adapter<MeiroMapAdapter.ViewHo
         WALL wall = mBlocksMove.getWall(key);
         boolean isSearch = mBlocksMove.isSearch(key);
 
-        ImageView imageTop   = (ImageView) viewHolder.itemView.findViewById(R.id.block_top);
-        ImageView imageBot   = (ImageView) viewHolder.itemView.findViewById(R.id.block_bot);
-        ImageView imageRight = (ImageView) viewHolder.itemView.findViewById(R.id.block_right);
-        ImageView imageLeft  = (ImageView) viewHolder.itemView.findViewById(R.id.block_left);
+        ImageView imageTop   = viewHolder.itemView.findViewById(R.id.block_top);
+        ImageView imageBot   = viewHolder.itemView.findViewById(R.id.block_bot);
+        ImageView imageRight = viewHolder.itemView.findViewById(R.id.block_right);
+        ImageView imageLeft  = viewHolder.itemView.findViewById(R.id.block_left);
 
-        ImageView imageBox   = (ImageView) viewHolder.itemView.findViewById(R.id.block_box);
+        ImageView imageBox   = viewHolder.itemView.findViewById(R.id.block_box);
 
-        ImageView imageDotTopLeft  = (ImageView) viewHolder.itemView.findViewById(R.id.dot_top_left);
-        ImageView imageDotTopRight = (ImageView) viewHolder.itemView.findViewById(R.id.dot_top_right);
-        ImageView imageDotBotLeft  = (ImageView) viewHolder.itemView.findViewById(R.id.dot_bot_left);
-        ImageView imageDotBotRight = (ImageView) viewHolder.itemView.findViewById(R.id.dot_bot_right);
+        ImageView imageDotTopLeft  = viewHolder.itemView.findViewById(R.id.dot_top_left);
+        ImageView imageDotTopRight = viewHolder.itemView.findViewById(R.id.dot_top_right);
+        ImageView imageDotBotLeft  = viewHolder.itemView.findViewById(R.id.dot_bot_left);
+        ImageView imageDotBotRight = viewHolder.itemView.findViewById(R.id.dot_bot_right);
 
         if (x == mBlocksMove.getMaxX() - 1) {
             imageTop.setVisibility(View.GONE);
