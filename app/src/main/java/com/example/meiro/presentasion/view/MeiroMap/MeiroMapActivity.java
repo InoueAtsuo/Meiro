@@ -1,4 +1,4 @@
-package com.example.meiro.presentasion.MeiroMap;
+package com.example.meiro.presentasion.view.MeiroMap;
 
 import android.content.Intent;
 import android.support.v4.app.FragmentTransaction;
@@ -34,14 +34,14 @@ public class MeiroMapActivity extends AppCompatActivity {
         int y = intent.getIntExtra(Constant.INTENT_KEY_Y, 0);
 
         setContentView(R.layout.activity_meiro_map);
-        mGiveUp = (Button) findViewById(R.id.give_up_button);
-        mReturn = (Button) findViewById(R.id.return_home_button);
+        mGiveUp = findViewById(R.id.give_up_button);
+        mReturn = findViewById(R.id.return_home_button);
 
         mMoveButtonArea = (RelativeLayout) findViewById(R.id.move_button_area);
-        mMoveUp    = (Button) findViewById(R.id.move_up);
-        mMoveDown  = (Button) findViewById(R.id.move_down);
-        mMoveRight = (Button) findViewById(R.id.move_right);
-        mMoveLeft  = (Button) findViewById(R.id.move_left);
+        mMoveUp    = findViewById(R.id.move_up);
+        mMoveDown  = findViewById(R.id.move_down);
+        mMoveRight = findViewById(R.id.move_right);
+        mMoveLeft  = findViewById(R.id.move_left);
 
         mFragment = MeiroMapFragment.of(x, y);
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();

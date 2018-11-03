@@ -1,4 +1,4 @@
-package com.example.meiro.presentasion.Main;
+package com.example.meiro.presentasion.view.Main;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import com.example.meiro.Constant.Constant;
 import com.example.meiro.R;
-import com.example.meiro.presentasion.MeiroMap.MeiroMapActivity;
+import com.example.meiro.presentasion.view.MeiroMap.MeiroMapActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -21,9 +21,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        level_1 = (Button) findViewById(R.id.level_1);
-        level_2 = (Button) findViewById(R.id.level_2);
-        level_3 = (Button) findViewById(R.id.level_3);
+        level_1 = findViewById(R.id.level_1);
+        level_2 = findViewById(R.id.level_2);
+        level_3 = findViewById(R.id.level_3);
 
         setUp();
     }
