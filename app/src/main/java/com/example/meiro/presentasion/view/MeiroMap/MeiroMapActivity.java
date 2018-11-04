@@ -73,7 +73,7 @@ public class MeiroMapActivity extends AppCompatActivity {
         mMoveUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mFragment.isEndMove(POSITION.POSITION_UP)) {
+                if (mFragment.isEndMove()) {
                     mFragment.endMeiro();
                     showButton(true);
                 }
@@ -86,39 +86,21 @@ public class MeiroMapActivity extends AppCompatActivity {
         mMoveDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mFragment.isEndMove(POSITION.POSITION_DOWN)) {
-                    mFragment.endMeiro();
-                    showButton(true);
-                }
-                else {
-                    mFragment.moveDown();
-                }
+                mFragment.moveDown();
             }
         });
 
         mMoveRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mFragment.isEndMove(POSITION.POSITION_RIGHT)) {
-                    mFragment.endMeiro();
-                    showButton(true);
-                }
-                else {
-                    mFragment.moveRight();
-                }
+                mFragment.moveRight();
             }
         });
 
         mMoveLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mFragment.isEndMove(POSITION.POSITION_LEFT)) {
-                    mFragment.endMeiro();
-                    showButton(true);
-                }
-                else {
-                    mFragment.moveLeft();
-                }
+                mFragment.moveLeft();
             }
         });
     }
@@ -128,7 +110,6 @@ public class MeiroMapActivity extends AppCompatActivity {
             mGiveUp.setVisibility(View.VISIBLE);
             mMoveButtonArea.setVisibility(View.VISIBLE);
             mMoveUp.setVisibility(View.VISIBLE);
-            mMoveDown.setVisibility(View.VISIBLE);
             mMoveRight.setVisibility(View.VISIBLE);
             mMoveLeft.setVisibility(View.VISIBLE);
             mReturn.setVisibility(View.GONE);
@@ -136,11 +117,9 @@ public class MeiroMapActivity extends AppCompatActivity {
             mGiveUp.setVisibility(View.GONE);
             mMoveButtonArea.setVisibility(View.GONE);
             mMoveUp.setVisibility(View.GONE);
-            mMoveDown.setVisibility(View.GONE);
             mMoveRight.setVisibility(View.GONE);
             mMoveLeft.setVisibility(View.GONE);
             mReturn.setVisibility(View.VISIBLE);
         }
     }
-
 }

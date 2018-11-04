@@ -68,14 +68,28 @@ public class BlocksMove extends Blocks {
         }
     }
 
-    public boolean isEndMove(String key, POSITION position) {
+    public boolean isEndMove(String key, POSITION direction) {
         int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
 
-        return x == getMaxX() - 2 && y == getMaxY() - 2 && position == POSITION.POSITION_UP;
+        return x == getMaxX() - 2 && y == getMaxY() - 2 && direction == POSITION.POSITION_UP;
     }
 
-    public boolean isMoveUp(String key) {
+    public boolean isMove(String key, POSITION direction) {
+        switch (direction) {
+            case POSITION_UP:
+                return isMoveUp(key);
+            case POSITION_DOWN:
+                return isMoveDown(key);
+            case POSITION_RIGHT:
+                return isMoveRight(key);
+            case POSITION_LEFT:
+                return isMoveLeft(key);
+        }
+        return false;
+    }
+
+    private boolean isMoveUp(String key) {
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
         if (getMaxY() - 2 <= y) {
             return false;
@@ -93,7 +107,7 @@ public class BlocksMove extends Blocks {
         }
     }
 
-    public boolean isMoveDown(String key) {
+    private boolean isMoveDown(String key) {
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
         if (y <= 1) {
             return false;
@@ -112,7 +126,7 @@ public class BlocksMove extends Blocks {
         }
     }
 
-    public boolean isMoveRight(String key) {
+    private boolean isMoveRight(String key) {
         int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
         if (getMaxX() - 2 <= x) {
             return false;
@@ -130,7 +144,7 @@ public class BlocksMove extends Blocks {
         }
     }
 
-    public boolean isMoveLeft(String key) {
+    private boolean isMoveLeft(String key) {
         int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
         if (x <= 1) {
             return false;

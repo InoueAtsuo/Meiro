@@ -21,6 +21,7 @@ public class MeiroMapFragment extends Fragment {
     private String mPosition;
     private BlocksCreate mBlocksCreate;
     private MeiroMapAdapter mAdapter;
+    private POSITION mDirecition;
 
     public static MeiroMapFragment of(int x, int y) {
         Bundle args = new Bundle();
@@ -48,15 +49,16 @@ public class MeiroMapFragment extends Fragment {
         mBlocksCreate.createMeiro();
 
         mPosition = MeiroUtil.getKey(1, 1);
+        mDirecition = POSITION.POSITION_UP;
+    }
 
-}
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.meiro_map, container, false);
 
-        mAdapter = MeiroMapAdapter.of(mBlocksCreate, mPosition);
+        mAdapter = MeiroMapAdapter.of(mBlocksCreate, mPosition, mDirecition);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(llm);
@@ -66,41 +68,70 @@ public class MeiroMapFragment extends Fragment {
         return view;
     }
 
-    public boolean isEndMove(POSITION position) {
-        return mAdapter.getBlocksMove().isEndMove(mPosition, position);
+    public boolean isEndMove() {
+        return mAdapter.getBlocksMove().isEndMove(mPosition, mDirecition);
     }
 
     public void moveUp() {
-
-        if(mAdapter.getBlocksMove().isMoveUp(mPosition)) {
-            mPosition = MeiroUtil.getNextKey(mPosition, POSITION.POSITION_UP);
+        if(mAdapter.getBlocksMove().isMove(mPosition, mDirecition)) {
+            mPosition = MeiroUtil.getNextKey(mPosition, mDirecition);
             mAdapter.getBlocksMove().addSearch(mPosition);
-            mAdapter.viewMeiro(mPosition);
+            mAdapter.viewMeiro(mPosition, mDirecition);
         }
     }
 
     public void moveDown() {
-        if(mAdapter.getBlocksMove().isMoveDown(mPosition)) {
-            mPosition = MeiroUtil.getNextKey(mPosition, POSITION.POSITION_DOWN);
-            mAdapter.getBlocksMove().addSearch(mPosition);
-            mAdapter.viewMeiro(mPosition);
+        switch (mDirecition) {
+            case POSITION_UP:
+                mDirecition = POSITION.POSITION_DOWN;
+                break;
+            case POSITION_RIGHT:
+                mDirecition = POSITION.POSITION_LEFT;
+                break;
+            case POSITION_DOWN:
+                mDirecition = POSITION.POSITION_UP;
+                break;
+            case POSITION_LEFT:
+                mDirecition = POSITION.POSITION_RIGHT;
+                break;
         }
+        mAdapter.viewMeiro(mPosition, mDirecition);
     }
 
     public void moveRight() {
-        if(mAdapter.getBlocksMove().isMoveRight(mPosition)) {
-            mPosition = MeiroUtil.getNextKey(mPosition, POSITION.POSITION_RIGHT);
-            mAdapter.getBlocksMove().addSearch(mPosition);
-            mAdapter.viewMeiro(mPosition);
+        switch (mDirecition) {
+            case POSITION_UP:
+                mDirecition = POSITION.POSITION_RIGHT;
+                break;
+            case POSITION_RIGHT:
+                mDirecition = POSITION.POSITION_DOWN;
+                break;
+            case POSITION_DOWN:
+                mDirecition = POSITION.POSITION_LEFT;
+                break;
+            case POSITION_LEFT:
+                mDirecition = POSITION.POSITION_UP;
+                break;
         }
+        mAdapter.viewMeiro(mPosition, mDirecition);
     }
 
     public void moveLeft() {
-        if(mAdapter.getBlocksMove().isMoveLeft(mPosition)) {
-            mPosition = MeiroUtil.getNextKey(mPosition, POSITION.POSITION_LEFT);
-            mAdapter.getBlocksMove().addSearch(mPosition);
-            mAdapter.viewMeiro(mPosition);
+        switch (mDirecition) {
+            case POSITION_UP:
+                mDirecition = POSITION.POSITION_LEFT;
+                break;
+            case POSITION_RIGHT:
+                mDirecition = POSITION.POSITION_UP;
+                break;
+            case POSITION_DOWN:
+                mDirecition = POSITION.POSITION_RIGHT;
+                break;
+            case POSITION_LEFT:
+                mDirecition = POSITION.POSITION_DOWN;
+                break;
         }
+        mAdapter.viewMeiro(mPosition, mDirecition);
     }
 
     public void endMeiro() {
