@@ -55,9 +55,6 @@ public class BlocksMove extends Blocks {
             else if (x == 0 && y == 0) {
                 getDatas().put(key, Block.of(WALL.WALL_NONE, 0));
             }
-            else if (x == 1 && y == 0) {
-                getDatas().put(key, Block.of(WALL.WALL_NONE, 0));
-            }
             else if (y == 0) {
                 getDatas().put(key, Block.of(WALL.WALL_HORIZONTAL, 0));
             }
