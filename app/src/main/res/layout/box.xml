@@ -12,19 +12,19 @@
             android:id="@+id/dot_top_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/block_dot_black">
+            android:src="@drawable/block_dot_gray">
         </ImageView>
         <ImageView
             android:id="@+id/block_top"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/block_horizontal_black">
+            android:src="@drawable/block_horizontal_gray">
         </ImageView>
         <ImageView
             android:id="@+id/dot_top_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/block_dot_black">
+            android:src="@drawable/block_dot_gray">
         </ImageView>
     </LinearLayout>
 
@@ -36,19 +36,19 @@
             android:id="@+id/block_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/block_vertical_black">
+            android:src="@drawable/block_vertical_gray">
         </ImageView>
         <ImageView
             android:id="@+id/block_box"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/block_box_white">
+            android:src="@drawable/block_box_gray">
         </ImageView>
         <ImageView
             android:id="@+id/block_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/block_vertical_black">
+            android:src="@drawable/block_vertical_gray">
         </ImageView>
     </LinearLayout>
 
@@ -60,19 +60,19 @@
             android:id="@+id/dot_bot_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/block_dot_black">
+            android:src="@drawable/block_dot_gray">
         </ImageView>
         <ImageView
             android:id="@+id/block_bot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/block_horizontal_black">
+            android:src="@drawable/block_horizontal_gray">
         </ImageView>
         <ImageView
             android:id="@+id/dot_bot_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/block_dot_black">
+            android:src="@drawable/block_dot_gray">
         </ImageView>
     </LinearLayout>
 </LinearLayout>

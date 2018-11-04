@@ -173,4 +173,136 @@ public class BlocksMove extends Blocks {
             mSearchKeys.add(key);
         }
     }
+
+    public boolean showUpWall(String key) {
+        int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
+        int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
+
+        if (isSearch(key)) {
+            return true;
+        }
+        if (y == mMaxY - 1) {
+            return true;
+        }
+
+        if (isSearch(MeiroUtil.getKey(x, y + 1))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean showDownWall(String key) {
+        int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
+        int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
+
+        if (isSearch(key)) {
+            return true;
+        }
+        if (y == 0) {
+            return true;
+        }
+
+        if (isSearch(MeiroUtil.getKey(x, y - 1))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean showRightWall(String key) {
+        int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
+        int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
+
+        if (isSearch(key)) {
+            return true;
+        }
+        if (x == mMaxX - 1) {
+            return true;
+        }
+
+        if (isSearch(MeiroUtil.getKey(x + 1, y))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean showLeftWall(String key) {
+        int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
+        int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
+
+        if (isSearch(key)) {
+            return true;
+        }
+        if (x == 0) {
+            return true;
+        }
+
+        if (isSearch(MeiroUtil.getKey(x - 1, y))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean showBlackTopRightDot(String key) {
+        int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
+        int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
+
+        if (x == mMaxX - 1 || y == mMaxY - 1) {
+            return false;
+        }
+
+        if (isSearch(MeiroUtil.getKey(x + 1, y + 1))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean showBlackBotRightDot(String key) {
+        int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
+        int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
+
+        if (x == mMaxX - 1 || y == 0) {
+            return false;
+        }
+
+        if (isSearch(MeiroUtil.getKey(x + 1, y - 1))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean showBlackBotLeftDot(String key) {
+        int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
+        int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
+
+        if (x == 0 || y == 0) {
+            return false;
+        }
+
+        if (isSearch(MeiroUtil.getKey(x - 1, y - 1))) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean showBlackTopLeftDot(String key) {
+        int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
+        int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
+
+        if (x == 0 || y == mMaxY - 1) {
+            return false;
+        }
+
+        if (isSearch(MeiroUtil.getKey(x - 1, y + 1))) {
+            return true;
+        }
+
+        return false;
+    }
 }

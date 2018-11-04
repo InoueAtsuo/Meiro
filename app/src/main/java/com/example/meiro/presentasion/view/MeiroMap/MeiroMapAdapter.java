@@ -77,62 +77,39 @@ public class MeiroMapAdapter extends RecyclerView.Adapter<MeiroMapAdapter.ViewHo
         int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
         WALL wall = mBlocksMove.getWall(key);
-        boolean isSearch = mBlocksMove.isSearch(key);
 
-        ImageView imageTop   = (ImageView) viewHolder.itemView.findViewById(R.id.block_top);
-        ImageView imageBot   = (ImageView) viewHolder.itemView.findViewById(R.id.block_bot);
-        ImageView imageRight = (ImageView) viewHolder.itemView.findViewById(R.id.block_right);
-        ImageView imageLeft  = (ImageView) viewHolder.itemView.findViewById(R.id.block_left);
+        ImageView imageTop   = viewHolder.itemView.findViewById(R.id.block_top);
+        ImageView imageBot   = viewHolder.itemView.findViewById(R.id.block_bot);
+        ImageView imageRight = viewHolder.itemView.findViewById(R.id.block_right);
+        ImageView imageLeft  = viewHolder.itemView.findViewById(R.id.block_left);
 
-        ImageView imageBox   = (ImageView) viewHolder.itemView.findViewById(R.id.block_box);
+        ImageView imageBox   = viewHolder.itemView.findViewById(R.id.block_box);
 
-        ImageView imageDotTopLeft  = (ImageView) viewHolder.itemView.findViewById(R.id.dot_top_left);
-        ImageView imageDotTopRight = (ImageView) viewHolder.itemView.findViewById(R.id.dot_top_right);
-        ImageView imageDotBotLeft  = (ImageView) viewHolder.itemView.findViewById(R.id.dot_bot_left);
-        ImageView imageDotBotRight = (ImageView) viewHolder.itemView.findViewById(R.id.dot_bot_right);
+        ImageView imageDotTopLeft  = viewHolder.itemView.findViewById(R.id.dot_top_left);
+        ImageView imageDotTopRight = viewHolder.itemView.findViewById(R.id.dot_top_right);
+        ImageView imageDotBotLeft  = viewHolder.itemView.findViewById(R.id.dot_bot_left);
+        ImageView imageDotBotRight = viewHolder.itemView.findViewById(R.id.dot_bot_right);
 
-        if (x == mBlocksMove.getMaxX() - 1) {
-            imageTop.setVisibility(View.GONE);
-            imageDotTopRight.setVisibility(View.GONE);
-            imageBox.setVisibility(View.GONE);
-            imageRight.setVisibility(View.GONE);
-            imageBot.setVisibility(View.GONE);
-            imageDotBotRight.setVisibility(View.GONE);
+        // Top表示
+        if (mBlocksMove.showUpWall(key) && (y != mBlocksMove.getMaxY() - 1)) {
+            imageDotTopLeft.setImageResource(R.drawable.block_dot_black);
+            imageDotTopRight.setImageResource(R.drawable.block_dot_black);
+            switch(wall){
+                case WALL_ALL:
+                case WALL_HORIZONTAL:
+                    imageTop.setImageResource(R.drawable.block_horizontal_black);
+                    break;
+                case WALL_VERTICAL:
+                case WALL_NONE:
+                    imageTop.setImageResource(R.drawable.block_horizontal_white);
+                    break;
+            }
         }
 
-        if (y == 0) {
-            imageLeft.setVisibility(View.GONE);
-            imageBox.setVisibility(View.GONE);
-            imageRight.setVisibility(View.GONE);
-            imageDotBotLeft.setVisibility(View.GONE);
-            imageBot.setVisibility(View.GONE);
-            imageDotBotRight.setVisibility(View.GONE);
-        }
-
-        if (!isSearch) {
-            imageDotTopLeft.setImageResource(R.drawable.block_dot_gray);
-            imageDotTopRight.setImageResource(R.drawable.block_dot_gray);
-            imageDotBotLeft.setImageResource(R.drawable.block_dot_gray);
-            imageDotBotRight.setImageResource(R.drawable.block_dot_gray);
-
-            imageTop.setImageResource(R.drawable.block_horizontal_gray);
-            imageBot.setImageResource(R.drawable.block_horizontal_gray);
-            imageRight.setImageResource(R.drawable.block_vertical_gray);
-            imageLeft.setImageResource(R.drawable.block_vertical_gray);
-
-            imageBox.setImageResource(R.drawable.block_box_gray);
-
-            return;
-        }
-
-        if (y == mBlocksMove.getMaxY() - 1) {
-            imageDotTopLeft.setImageResource(R.drawable.block_dot_white);
-            imageTop.setImageResource(R.drawable.block_horizontal_white);
-            imageDotTopRight.setImageResource(R.drawable.block_dot_white);
-            imageLeft.setImageResource(R.drawable.block_vertical_white);
-            imageRight.setImageResource(R.drawable.block_vertical_white);
-        }
-        if (y != 0) {
+        // Bot表示
+        if (mBlocksMove.showDownWall(key) && (y != 0)) {
+            imageDotBotLeft.setImageResource(R.drawable.block_dot_black);
+            imageDotBotRight.setImageResource(R.drawable.block_dot_black);
             WALL botWall = mBlocksMove.getWall(MeiroUtil.getKey(x, y - 1));
             switch(botWall){
                 case WALL_ALL:
@@ -146,14 +123,26 @@ public class MeiroMapAdapter extends RecyclerView.Adapter<MeiroMapAdapter.ViewHo
             }
         }
 
-        if (x == 0) {
-            imageDotTopLeft.setImageResource(R.drawable.block_dot_white);
-            imageTop.setImageResource(R.drawable.block_horizontal_white);
-            imageLeft.setImageResource(R.drawable.block_vertical_white);
-            imageDotBotLeft.setImageResource(R.drawable.block_dot_white);
-            imageBot.setImageResource(R.drawable.block_horizontal_white);
+        // Right表示
+        if (mBlocksMove.showRightWall(key) && (x != mBlocksMove.getMaxX() - 1)) {
+            imageDotTopRight.setImageResource(R.drawable.block_dot_black);
+            imageDotBotRight.setImageResource(R.drawable.block_dot_black);
+            switch(wall){
+                case WALL_ALL:
+                case WALL_VERTICAL:
+                    imageRight.setImageResource(R.drawable.block_vertical_black);
+                    break;
+                case WALL_HORIZONTAL:
+                case WALL_NONE:
+                    imageRight.setImageResource(R.drawable.block_vertical_white);
+                    break;
+            }
         }
-        else {
+
+        // Left表示
+        if (mBlocksMove.showLeftWall(key) && (x != 0)) {
+            imageDotTopLeft.setImageResource(R.drawable.block_dot_black);
+            imageDotBotLeft.setImageResource(R.drawable.block_dot_black);
             WALL leftWall = mBlocksMove.getWall(MeiroUtil.getKey(x - 1, y));
             switch(leftWall){
                 case WALL_ALL:
@@ -167,30 +156,47 @@ public class MeiroMapAdapter extends RecyclerView.Adapter<MeiroMapAdapter.ViewHo
             }
         }
 
-        switch(wall){
-            case WALL_ALL:
-                imageTop.setImageResource(R.drawable.block_horizontal_black);
-                imageRight.setImageResource(R.drawable.block_vertical_black);
-                break;
-            case WALL_VERTICAL:
-                imageTop.setImageResource(R.drawable.block_horizontal_white);
-                imageRight.setImageResource(R.drawable.block_vertical_black);
-                break;
-            case WALL_HORIZONTAL:
-                imageTop.setImageResource(R.drawable.block_horizontal_black);
-                imageRight.setImageResource(R.drawable.block_vertical_white);
-                break;
-            case WALL_NONE:
-                imageTop.setImageResource(R.drawable.block_horizontal_white);
-                imageRight.setImageResource(R.drawable.block_vertical_white);
-                break;
+        // 角表示
+        if (mBlocksMove.showBlackTopRightDot(key)) {
+            imageDotTopRight.setImageResource(R.drawable.block_dot_black);
+        }
+        if (mBlocksMove.showBlackBotRightDot(key)) {
+            imageDotBotRight.setImageResource(R.drawable.block_dot_black);
+        }
+        if (mBlocksMove.showBlackTopLeftDot(key)) {
+            imageDotTopLeft.setImageResource(R.drawable.block_dot_black);
+        }
+        if (mBlocksMove.showBlackBotLeftDot(key)) {
+            imageDotBotLeft.setImageResource(R.drawable.block_dot_black);
         }
 
+        // CENTER表示
         if (key.equals(mPosition)) {
             imageBox.setImageResource(R.drawable.block_box_red);
         }
-        else {
+        else if(mBlocksMove.isSearch(key)) {
             imageBox.setImageResource(R.drawable.block_box_white);
+        }
+
+        if (y == mBlocksMove.getMaxY() - 1) {
+            imageDotTopLeft.setImageResource(R.drawable.block_dot_white);
+            imageTop.setImageResource(R.drawable.block_horizontal_white);
+            imageDotTopRight.setImageResource(R.drawable.block_dot_white);
+        }
+        if (y == 0) {
+            imageDotBotLeft.setImageResource(R.drawable.block_dot_white);
+            imageBot.setImageResource(R.drawable.block_horizontal_white);
+            imageDotBotRight.setImageResource(R.drawable.block_dot_white);
+        }
+        if (x == mBlocksMove.getMaxX() - 1) {
+            imageDotTopRight.setImageResource(R.drawable.block_dot_white);
+            imageRight.setImageResource(R.drawable.block_vertical_white);
+            imageDotBotRight.setImageResource(R.drawable.block_dot_white);
+        }
+        if (x == 0) {
+            imageDotTopLeft.setImageResource(R.drawable.block_dot_white);
+            imageLeft.setImageResource(R.drawable.block_vertical_white);
+            imageDotBotLeft.setImageResource(R.drawable.block_dot_white);
         }
     }
 }
