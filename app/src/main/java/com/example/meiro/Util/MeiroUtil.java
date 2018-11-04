@@ -16,10 +16,9 @@ public class MeiroUtil {
         return dataList.get(val);
     }
 
-    public static int getRandom(int max) {
+    private static int getRandom(int max) {
         Random random = new Random();
-        int next = random.nextInt(max);
-        return next;
+        return random.nextInt(max);
     }
 
     public static String getKey(int x, int y) {

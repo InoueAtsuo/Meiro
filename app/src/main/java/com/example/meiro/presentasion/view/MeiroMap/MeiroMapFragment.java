@@ -1,6 +1,7 @@
 package com.example.meiro.presentasion.view.MeiroMap;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,22 +37,26 @@ public class MeiroMapFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         Bundle args = getArguments();
-        int x = args.getInt(Constant.INTENT_KEY_X);
-        int y = args.getInt(Constant.INTENT_KEY_Y);
+        int x = 0;
+        int y = 0;
+        if (args != null) {
+            x = args.getInt(Constant.INTENT_KEY_X);
+            y = args.getInt(Constant.INTENT_KEY_Y);
+        }
 
         mBlocksCreate = BlocksCreate.of(x, y);
         mBlocksCreate.createMeiro();
 
         mPosition = MeiroUtil.getKey(1, 1);
-    }
 
+}
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
         View view = inflater.inflate(R.layout.meiro_map, container, false);
 
-        mAdapter = MeiroMapAdapter.of(getActivity(), mBlocksCreate, mPosition);
+        mAdapter = MeiroMapAdapter.of(mBlocksCreate, mPosition);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity(), LinearLayoutManager.HORIZONTAL, false);
         RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(llm);

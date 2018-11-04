@@ -1,6 +1,5 @@
 package com.example.meiro.presentasion.view.MeiroMap;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,30 +17,27 @@ import com.example.meiro.Util.MeiroUtil;
 public class MeiroMapAdapter extends RecyclerView.Adapter<MeiroMapAdapter.ViewHolder> {
 
     private BlocksMove mBlocksMove;
-    private Context mContext;
     private String mPosition;
 
-    private MeiroMapAdapter(Context context, BlocksCreate blocksCreate, String position) {
-        mContext = context;
+    private MeiroMapAdapter(BlocksCreate blocksCreate, String position) {
         mBlocksMove = BlocksMove.of(blocksCreate.getMaxX() + 2, blocksCreate.getMaxY() + 2);
         mBlocksMove.setWallData(blocksCreate.getDatas());
         mPosition = position;
         mBlocksMove.addSearch(mPosition);
     }
 
-    public static MeiroMapAdapter of(Context context, BlocksCreate blocksCreate, String position) {
-        MeiroMapAdapter adapter = new MeiroMapAdapter(context, blocksCreate, position);
-        return adapter;
+    public static MeiroMapAdapter of(BlocksCreate blocksCreate, String position) {
+        return new MeiroMapAdapter(blocksCreate, position);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public ViewHolder(View v) {
+        private ViewHolder(View v) {
             super(v);
         }
     }
 
-    @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    @Override @NonNull
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.box, parent,false);
         return new ViewHolder(view);
