@@ -10,12 +10,12 @@ import java.util.Map;
 
 public class Blocks {
 
-    protected Map<String, Block> mDatas = new HashMap<>();
+    private Map<String, Block> mDatas = new HashMap<>();
 
-    protected int mMaxX;
-    protected int mMaxY;
+    private int mMaxX;
+    private int mMaxY;
 
-    protected Blocks(int maxX, int maxY) {
+    public Blocks(int maxX, int maxY) {
         mMaxX = maxX;
         mMaxY = maxY;
     }

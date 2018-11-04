@@ -46,27 +46,27 @@ public class BlocksMove extends Blocks {
             int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
             int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
 
-            if (x == mMaxX - 1) {
-                mDatas.put(key, Block.of(WALL.WALL_NONE, 0));
+            if (x == getMaxX() - 1) {
+                getDatas().put(key, Block.of(WALL.WALL_NONE, 0));
             }
-            else if (y == mMaxY - 1) {
-                mDatas.put(key, Block.of(WALL.WALL_NONE, 0));
+            else if (y == getMaxY() - 1) {
+                getDatas().put(key, Block.of(WALL.WALL_NONE, 0));
             }
             else if (x == 0 && y == 0) {
-                mDatas.put(key, Block.of(WALL.WALL_NONE, 0));
+                getDatas().put(key, Block.of(WALL.WALL_NONE, 0));
             }
             else if (x == 1 && y == 0) {
-                mDatas.put(key, Block.of(WALL.WALL_NONE, 0));
+                getDatas().put(key, Block.of(WALL.WALL_NONE, 0));
             }
             else if (y == 0) {
-                mDatas.put(key, Block.of(WALL.WALL_HORIZONTAL, 0));
+                getDatas().put(key, Block.of(WALL.WALL_HORIZONTAL, 0));
             }
             else if (x == 0) {
-                mDatas.put(key, Block.of(WALL.WALL_VERTICAL, 0));
+                getDatas().put(key, Block.of(WALL.WALL_VERTICAL, 0));
             }
             else {
                 String createKey = MeiroUtil.getKey((x - 1), (y - 1));
-                mDatas.put(key, datas.get(createKey));
+                getDatas().put(key, datas.get(createKey));
             }
         }
     }
@@ -75,16 +75,12 @@ public class BlocksMove extends Blocks {
         int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
 
-        if (x == mMaxX - 2 && y == mMaxY - 2 && position == POSITION.POSITION_UP) {
-            return true;
-        }
-
-        return false;
+        return x == getMaxX() - 2 && y == getMaxY() - 2 && position == POSITION.POSITION_UP;
     }
 
     public boolean isMoveUp(String key) {
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
-        if (mMaxY - 2 <= y) {
+        if (getMaxY() - 2 <= y) {
             return false;
         }
 
@@ -121,7 +117,7 @@ public class BlocksMove extends Blocks {
 
     public boolean isMoveRight(String key) {
         int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
-        if (mMaxX - 2 <= x) {
+        if (getMaxX() - 2 <= x) {
             return false;
         }
 
@@ -168,10 +164,7 @@ public class BlocksMove extends Blocks {
 
     public void showAll() {
         mSearchKeys.clear();
-        List<String> keys = getKeys();
-        for (String key : keys) {
-            mSearchKeys.add(key);
-        }
+        mSearchKeys.addAll(getKeys());
     }
 
     public boolean showUpWall(String key) {
@@ -181,15 +174,11 @@ public class BlocksMove extends Blocks {
         if (isSearch(key)) {
             return true;
         }
-        if (y == mMaxY - 1) {
+        else if (y == getMaxY() - 1) {
             return true;
         }
 
-        if (isSearch(MeiroUtil.getKey(x, y + 1))) {
-            return true;
-        }
-
-        return false;
+        return isSearch(MeiroUtil.getKey(x, y + 1));
     }
 
     public boolean showDownWall(String key) {
@@ -199,15 +188,11 @@ public class BlocksMove extends Blocks {
         if (isSearch(key)) {
             return true;
         }
-        if (y == 0) {
+        else if (y == 0) {
             return true;
         }
 
-        if (isSearch(MeiroUtil.getKey(x, y - 1))) {
-            return true;
-        }
-
-        return false;
+        return isSearch(MeiroUtil.getKey(x, y - 1));
     }
 
     public boolean showRightWall(String key) {
@@ -217,15 +202,11 @@ public class BlocksMove extends Blocks {
         if (isSearch(key)) {
             return true;
         }
-        if (x == mMaxX - 1) {
+        else if (x == getMaxX() - 1) {
             return true;
         }
 
-        if (isSearch(MeiroUtil.getKey(x + 1, y))) {
-            return true;
-        }
-
-        return false;
+        return isSearch(MeiroUtil.getKey(x + 1, y));
     }
 
     public boolean showLeftWall(String key) {
@@ -235,74 +216,42 @@ public class BlocksMove extends Blocks {
         if (isSearch(key)) {
             return true;
         }
-        if (x == 0) {
+        else if (x == 0) {
             return true;
         }
 
-        if (isSearch(MeiroUtil.getKey(x - 1, y))) {
-            return true;
-        }
-
-        return false;
+        return isSearch(MeiroUtil.getKey(x - 1, y));
     }
 
     public boolean showBlackTopRightDot(String key) {
         int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
 
-        if (x == mMaxX - 1 || y == mMaxY - 1) {
-            return false;
-        }
-
-        if (isSearch(MeiroUtil.getKey(x + 1, y + 1))) {
-            return true;
-        }
-
-        return false;
+        return x != getMaxX() - 1 && y != getMaxY() - 1 &&
+                isSearch(MeiroUtil.getKey(x + 1, y + 1));
     }
 
     public boolean showBlackBotRightDot(String key) {
         int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
 
-        if (x == mMaxX - 1 || y == 0) {
-            return false;
-        }
-
-        if (isSearch(MeiroUtil.getKey(x + 1, y - 1))) {
-            return true;
-        }
-
-        return false;
+        return x != getMaxX() - 1 && y != 0 &&
+                isSearch(MeiroUtil.getKey(x + 1, y - 1));
     }
 
     public boolean showBlackBotLeftDot(String key) {
         int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
 
-        if (x == 0 || y == 0) {
-            return false;
-        }
-
-        if (isSearch(MeiroUtil.getKey(x - 1, y - 1))) {
-            return true;
-        }
-
-        return false;
+        return x != 0 && y != 0 &&
+                isSearch(MeiroUtil.getKey(x - 1, y - 1));
     }
 
     public boolean showBlackTopLeftDot(String key) {
         int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
 
-        if (x == 0 || y == mMaxY - 1) {
-            return false;
-        }
-
-        if (isSearch(MeiroUtil.getKey(x - 1, y + 1))) {
-            return true;
-        }
-
-        return false;
+        return x != 0 && y != getMaxY() - 1 &&
+                isSearch(MeiroUtil.getKey(x - 1, y + 1));
     }
 }

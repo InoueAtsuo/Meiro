@@ -17,11 +17,11 @@ public class BlocksCreate extends Blocks {
         super(maxX, maxY);
         List<String> keys = getKeys();
         for (String key : keys) {
-            mDatas.put(key, Block.of(getFirstWall(key), getFirstConnect(key)));
+            getDatas().put(key, Block.of(getFirstWall(key), getFirstConnect(key)));
             mNoEndKeys.add(key);
         }
 
-        String removeKey = MeiroUtil.getKey(mMaxX - 1, mMaxY - 1);
+        String removeKey = MeiroUtil.getKey(getMaxX() - 1, getMaxY() - 1);
         Iterator<String> i = mNoEndKeys.iterator();
         while(i.hasNext()) {
             String key = i.next();
@@ -35,7 +35,7 @@ public class BlocksCreate extends Blocks {
         return new BlocksCreate(maxX, maxY);
     }
 
-    public boolean isCreateEnd() {
+    private boolean isCreateEnd() {
         return mNoEndKeys.isEmpty();
     }
 
@@ -52,13 +52,13 @@ public class BlocksCreate extends Blocks {
             }
         }
 
-        removeLastWall(MeiroUtil.getKey(mMaxX - 1, mMaxY - 1));
+        removeLastWall(MeiroUtil.getKey(getMaxX() - 1, getMaxY() - 1));
     }
 
     private WALL getFirstWall(String key) {
         int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
-        if (x == mMaxX - 1 && y == mMaxY - 1) {
+        if (x == getMaxX() - 1 && y == getMaxY() - 1) {
             return WALL.WALL_VERTICAL;
         }
         return WALL.WALL_ALL;
@@ -67,7 +67,7 @@ public class BlocksCreate extends Blocks {
     private int getFirstConnect(String key) {
         int x = Integer.valueOf(key.split(Constant.REGEX)[0]);
         int y = Integer.valueOf(key.split(Constant.REGEX)[1]);
-        return x + y * mMaxX;
+        return x + y * getMaxX();
     }
 
     private List<POSITION> getNextPosition(String key) {
@@ -76,31 +76,31 @@ public class BlocksCreate extends Blocks {
 
         List<POSITION> breakNexts = new ArrayList<>();
 
-        if (y < mMaxY - 1) {
+        if (y < getMaxY() - 1) {
             String upKey = MeiroUtil.getNextKey(key, POSITION.POSITION_UP);
-            if (y != mMaxY - 2 || x != mMaxX - 1) {
-                if (mDatas.get(key).getConnect() != mDatas.get(upKey).getConnect()) {
+            if (y != getMaxY() - 2 || x != getMaxX() - 1) {
+                if (getDatas().get(key).getConnect() != getDatas().get(upKey).getConnect()) {
                     breakNexts.add(POSITION.POSITION_UP);
                 }
             }
         }
-        if (x < mMaxX - 1) {
+        if (x < getMaxX() - 1) {
             String rightKey = MeiroUtil.getNextKey(key, POSITION.POSITION_RIGHT);
-            if (x != mMaxX - 2 || y != mMaxY - 1) {
-                if (mDatas.get(key).getConnect() != mDatas.get(rightKey).getConnect()) {
+            if (x != getMaxX() - 2 || y != getMaxY() - 1) {
+                if (getDatas().get(key).getConnect() != getDatas().get(rightKey).getConnect()) {
                     breakNexts.add(POSITION.POSITION_RIGHT);
                 }
             }
         }
         if (y > 0) {
             String downKey = MeiroUtil.getNextKey(key, POSITION.POSITION_DOWN);
-            if (mDatas.get(key).getConnect() != mDatas.get(downKey).getConnect()) {
+            if (getDatas().get(key).getConnect() != getDatas().get(downKey).getConnect()) {
                 breakNexts.add(POSITION.POSITION_DOWN);
             }
         }
         if (x > 0) {
             String leftKey = MeiroUtil.getNextKey(key, POSITION.POSITION_LEFT);
-            if (mDatas.get(key).getConnect() != mDatas.get(leftKey).getConnect()) {
+            if (getDatas().get(key).getConnect() != getDatas().get(leftKey).getConnect()) {
                 breakNexts.add(POSITION.POSITION_LEFT);
             }
         }
@@ -110,8 +110,8 @@ public class BlocksCreate extends Blocks {
 
     private void breakWall(String key, POSITION nextPosition) {
         String nextKey = MeiroUtil.getNextKey(key, nextPosition);
-        Block block = mDatas.get(key);
-        Block nextBlock = mDatas.get(nextKey);
+        Block block = getDatas().get(key);
+        Block nextBlock = getDatas().get(nextKey);
         switch(nextPosition) {
             case POSITION_UP:
                 if (block.getWall() == WALL.WALL_ALL){
@@ -119,7 +119,7 @@ public class BlocksCreate extends Blocks {
                 } else {
                     block.setWall(WALL.WALL_NONE);
                 }
-                mDatas.put(key, block);
+                getDatas().put(key, block);
                 break;
             case POSITION_DOWN:
                 if (nextBlock.getWall() == WALL.WALL_ALL){
@@ -127,7 +127,7 @@ public class BlocksCreate extends Blocks {
                 } else {
                     nextBlock.setWall(WALL.WALL_NONE);
                 }
-                mDatas.put(nextKey, nextBlock);
+                getDatas().put(nextKey, nextBlock);
                 break;
             case POSITION_RIGHT:
                 if (block.getWall() == WALL.WALL_ALL){
@@ -135,7 +135,7 @@ public class BlocksCreate extends Blocks {
                 } else {
                     block.setWall(WALL.WALL_NONE);
                 }
-                mDatas.put(key, block);
+                getDatas().put(key, block);
                 break;
             case POSITION_LEFT:
                 if (nextBlock.getWall() == WALL.WALL_ALL){
@@ -143,7 +143,7 @@ public class BlocksCreate extends Blocks {
                 } else {
                     nextBlock.setWall(WALL.WALL_NONE);
                 }
-                mDatas.put(nextKey, nextBlock);
+                getDatas().put(nextKey, nextBlock);
                 break;
             default:
                 break;
@@ -166,8 +166,8 @@ public class BlocksCreate extends Blocks {
     }
 
     private void setConnect(String key, String nextKey){
-        int keyConnect = mDatas.get(key).getConnect();
-        int nextConnect = mDatas.get(nextKey).getConnect();
+        int keyConnect = getDatas().get(key).getConnect();
+        int nextConnect = getDatas().get(nextKey).getConnect();
 
         if (keyConnect > nextConnect) {
             setConnectAll(nextConnect, keyConnect);
@@ -180,10 +180,10 @@ public class BlocksCreate extends Blocks {
     private void setConnectAll(int beforeConnect, int afterConnect){
         List<String> keys = getKeys();
         for(String key : keys) {
-            Block block = mDatas.get(key);
+            Block block = getDatas().get(key);
             if (block.getConnect() == beforeConnect) {
                 block.setConnect(afterConnect);
-                mDatas.put(key, block);
+                getDatas().put(key, block);
             }
         }
     }
@@ -194,13 +194,13 @@ public class BlocksCreate extends Blocks {
         preGoalList.add(POSITION.POSITION_LEFT);
         POSITION lastPosition = (POSITION) MeiroUtil.getRandomValue(preGoalList);
         String lastKey = MeiroUtil.getNextKey(key, lastPosition);
-        Block lastBlock = mDatas.get(lastKey);
+        Block lastBlock = getDatas().get(lastKey);
         if (lastPosition == POSITION.POSITION_DOWN) {
             lastBlock.setWall(WALL.WALL_VERTICAL);
         }
         else {
             lastBlock.setWall(WALL.WALL_HORIZONTAL);
         }
-        mDatas.put(lastKey, lastBlock);
+        getDatas().put(lastKey, lastBlock);
     }
 }

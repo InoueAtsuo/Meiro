@@ -37,7 +37,7 @@ public class MeiroMapActivity extends AppCompatActivity {
         mGiveUp = findViewById(R.id.give_up_button);
         mReturn = findViewById(R.id.return_home_button);
 
-        mMoveButtonArea = (RelativeLayout) findViewById(R.id.move_button_area);
+        mMoveButtonArea = findViewById(R.id.move_button_area);
         mMoveUp    = findViewById(R.id.move_up);
         mMoveDown  = findViewById(R.id.move_down);
         mMoveRight = findViewById(R.id.move_right);
