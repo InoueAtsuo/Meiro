@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.meiro.Constant.Constant;
+import com.example.meiro.Constant.Constant.POSITION;
 import com.example.meiro.Constant.Constant.WALL;
 import com.example.meiro.Data.BlocksCreate;
 import com.example.meiro.Data.BlocksMove;
@@ -18,16 +19,18 @@ public class MeiroMapAdapter extends RecyclerView.Adapter<MeiroMapAdapter.ViewHo
 
     private BlocksMove mBlocksMove;
     private String mPosition;
+    private POSITION mDirection;
 
-    private MeiroMapAdapter(BlocksCreate blocksCreate, String position) {
+    private MeiroMapAdapter(BlocksCreate blocksCreate, String position, POSITION direction) {
         mBlocksMove = BlocksMove.of(blocksCreate.getMaxX() + 2, blocksCreate.getMaxY() + 2);
         mBlocksMove.setWallData(blocksCreate.getDatas());
         mPosition = position;
+        mDirection = direction;
         mBlocksMove.addSearch(mPosition);
     }
 
-    public static MeiroMapAdapter of(BlocksCreate blocksCreate, String position) {
-        return new MeiroMapAdapter(blocksCreate, position);
+    public static MeiroMapAdapter of(BlocksCreate blocksCreate, String position, POSITION direction) {
+        return new MeiroMapAdapter(blocksCreate, position, direction);
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -54,8 +57,9 @@ public class MeiroMapAdapter extends RecyclerView.Adapter<MeiroMapAdapter.ViewHo
         return mBlocksMove.getKeys().size();
     }
 
-    public void viewMeiro(String position) {
+    public void viewMeiro(String position, POSITION direction) {
         mPosition = position;
+        mDirection = direction;
         notifyDataSetChanged();
     }
 
@@ -168,7 +172,20 @@ public class MeiroMapAdapter extends RecyclerView.Adapter<MeiroMapAdapter.ViewHo
 
         // CENTER表示
         if (key.equals(mPosition)) {
-            imageBox.setImageResource(R.drawable.block_box_red);
+            switch (mDirection) {
+                case POSITION_UP:
+                    imageBox.setImageResource(R.drawable.block_box_up);
+                    break;
+                case POSITION_DOWN:
+                    imageBox.setImageResource(R.drawable.block_box_down);
+                    break;
+                case POSITION_RIGHT:
+                    imageBox.setImageResource(R.drawable.block_box_right);
+                    break;
+                case POSITION_LEFT:
+                    imageBox.setImageResource(R.drawable.block_box_left);
+                    break;
+            }
         }
         else if(mBlocksMove.isSearch(key)) {
             imageBox.setImageResource(R.drawable.block_box_white);
